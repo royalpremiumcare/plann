@@ -108,7 +108,7 @@ frontend:
   - task: "User Registration System"
     implemented: true
     working: true
-    file: "Registration form at https://vds-remote-admin.preview.emergentagent.com"
+    file: "Registration form at https://plannapp.preview.emergentagent.com"
     stuck_count: 0
     priority: "medium"
     needs_retesting: false
@@ -120,7 +120,7 @@ frontend:
   - task: "User Login System"
     implemented: true
     working: true
-    file: "Login form at https://vds-remote-admin.preview.emergentagent.com"
+    file: "Login form at https://plannapp.preview.emergentagent.com"
     stuck_count: 0
     priority: "medium"
     needs_retesting: false
@@ -132,7 +132,7 @@ frontend:
   - task: "Admin Dashboard Navigation"
     implemented: true
     working: true
-    file: "Dashboard at https://vds-remote-admin.preview.emergentagent.com/dashboard"
+    file: "Dashboard at https://plannapp.preview.emergentagent.com/dashboard"
     stuck_count: 0
     priority: "medium"
     needs_retesting: false

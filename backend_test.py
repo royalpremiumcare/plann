@@ -10,7 +10,7 @@ import sys
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://scheduleflow-28.preview.emergentagent.com/api"
+BASE_URL = "https://plannapp.preview.emergentagent.com/api"
 TEST_USER_EMAIL = "testadmin@example.com"
 TEST_USER_PASSWORD = "testpass123"
 TEST_USER_FULL_NAME = "Test Admin User"

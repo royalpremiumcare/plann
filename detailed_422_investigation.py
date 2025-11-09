@@ -11,7 +11,7 @@ from datetime import datetime
 import time
 
 # Configuration
-BASE_URL = "https://scheduleflow-28.preview.emergentagent.com/api"
+BASE_URL = "https://plannapp.preview.emergentagent.com/api"
 
 class DetailedInvestigator:
     def __init__(self):
