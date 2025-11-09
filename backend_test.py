@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Backend API Testing for Staff Management Feature
-Tests authentication and staff management endpoints
+Backend API Testing for PLANN Appointment Scheduling App
+Tests core endpoints as requested by user
 """
 
 import requests
@@ -11,15 +11,8 @@ from datetime import datetime
 
 # Configuration
 BASE_URL = "https://plannapp.preview.emergentagent.com/api"
-TEST_USER_EMAIL = "testadmin@example.com"
-TEST_USER_PASSWORD = "testpass123"
-TEST_USER_FULL_NAME = "Test Admin User"
-TEST_ORG_NAME = "Test Organization"
-
-# Test staff data
-TEST_STAFF_EMAIL = "teststaff@example.com"
-TEST_STAFF_PASSWORD = "staffpass123"
-TEST_STAFF_FULL_NAME = "Test Staff Member"
+TEST_USER_EMAIL = "test@test.com"
+TEST_USER_PASSWORD = "test123"
 
 class BackendTester:
     def __init__(self):
