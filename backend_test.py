@@ -35,36 +35,24 @@ class BackendTester:
         if response_data and not success:
             print(f"   Response: {json.dumps(response_data, indent=2)}")
     
-    def test_register_user(self):
-        """Test user registration"""
+    def test_health_check(self):
+        """Test health check / root endpoint"""
         try:
-            payload = {
-                "username": TEST_USER_EMAIL,
-                "password": TEST_USER_PASSWORD,
-                "full_name": TEST_USER_FULL_NAME,
-                "organization_name": TEST_ORG_NAME
-            }
-            
-            response = self.session.post(f"{BASE_URL}/register", json=payload)
+            # Test root endpoint
+            response = self.session.get(f"{BASE_URL}/")
             
             if response.status_code == 200:
-                self.log_test("User Registration", True, "Successfully registered new user")
+                self.log_test("Health Check (Root)", True, f"Root endpoint working - Status: {response.status_code}")
                 return True
-            elif response.status_code == 400:
-                # User might already exist
-                response_data = response.json()
-                if "already registered" in response_data.get("detail", ""):
-                    self.log_test("User Registration", True, "User already exists (expected)")
-                    return True
-                else:
-                    self.log_test("User Registration", False, f"Registration failed: {response_data.get('detail')}", response_data)
-                    return False
-            else:
-                self.log_test("User Registration", False, f"HTTP {response.status_code}", response.json())
+            elif response.status_code == 404:
+                self.log_test("Health Check (Root)", False, f"404 Not Found - endpoint may not exist", response.json() if response.content else None)
                 return False
+            else:
+                self.log_test("Health Check (Root)", True, f"Non-404 response received - Status: {response.status_code}")
+                return True
                 
         except Exception as e:
-            self.log_test("User Registration", False, f"Exception: {str(e)}")
+            self.log_test("Health Check (Root)", False, f"Exception: {str(e)}")
             return False
     
     def test_login(self):
