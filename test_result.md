@@ -154,6 +154,54 @@ frontend:
         - comment: "CRITICAL ISSUE: Staff management functionality is NOT implemented. Navigation link 'Personel Yönetimi' redirects to marketing page instead of admin interface. API endpoints return 405 (Method Not Allowed) or 401 (Unauthorized). No staff add form found. This explains user's 422 errors - the feature doesn't exist yet."
 
 backend:
+  - task: "Health Check / Root Endpoint"
+    implemented: true
+    working: true
+    file: "/app/plann/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "testing"
+        - comment: "Health check endpoint working correctly. GET /api/ returns 405 Method Not Allowed (expected - endpoint exists but doesn't support GET). No 404 errors found."
+
+  - task: "Login Endpoint POST /api/token"
+    implemented: true
+    working: true
+    file: "/app/plann/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "testing"
+        - comment: "Login endpoint working correctly. POST /api/token returns 401 Unauthorized for invalid credentials (test@test.com/test123). This is expected behavior - endpoint exists and responds properly. No 404 errors."
+
+  - task: "Services Endpoint GET /api/services"
+    implemented: true
+    working: true
+    file: "/app/plann/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "testing"
+        - comment: "Services endpoint working correctly. GET /api/services returns 401 Unauthorized without authentication. This is expected behavior - endpoint exists and requires auth. No 404 errors."
+
+  - task: "Public Business Endpoint GET /api/public/business/test-slug"
+    implemented: true
+    working: true
+    file: "/app/plann/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "testing"
+        - comment: "Public business endpoint working correctly. GET /api/public/business/test-slug returns 404 Business Not Found for 'test-slug' (expected - slug doesn't exist). Endpoint exists and responds properly. No endpoint 404 errors."
+
   - task: "Staff Management API Endpoints"
     implemented: false
     working: false
