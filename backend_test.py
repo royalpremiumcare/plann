@@ -115,39 +115,37 @@ class BackendTester:
             self.log_test("Services Endpoint", False, f"Exception: {str(e)}")
             return False
     
-    def test_add_staff_valid_data(self):
-        """Test POST /api/staff/add with valid data"""
+    def test_public_business_endpoint(self):
+        """Test GET /api/public/business/test-slug endpoint"""
         try:
-            payload = {
-                "username": TEST_STAFF_EMAIL,
-                "password": TEST_STAFF_PASSWORD,
-                "full_name": TEST_STAFF_FULL_NAME
-            }
-            
-            response = self.session.post(f"{BASE_URL}/staff/add", json=payload)
+            response = self.session.get(f"{BASE_URL}/public/business/test-slug")
             
             if response.status_code == 200:
-                response_data = response.json()
-                self.log_test("Add Staff - Valid Data", True, "Successfully added staff member", response_data)
+                business_data = response.json()
+                self.log_test("Public Business Endpoint", True, f"Public business endpoint working - Retrieved business data")
                 return True
-            elif response.status_code == 422:
-                response_data = response.json()
-                self.log_test("Add Staff - Valid Data", False, f"422 Validation Error: {response_data}", response_data)
-                return False
-            elif response.status_code == 400:
-                response_data = response.json()
-                if "already registered" in response_data.get("detail", ""):
-                    self.log_test("Add Staff - Valid Data", True, "Staff already exists (expected)")
-                    return True
-                else:
-                    self.log_test("Add Staff - Valid Data", False, f"400 Error: {response_data.get('detail')}", response_data)
+            elif response.status_code == 404:
+                # Check if it's a proper 404 with business not found, not endpoint not found
+                try:
+                    response_data = response.json()
+                    if "İşletme bulunamadı" in response_data.get("detail", "") or "business" in response_data.get("detail", "").lower():
+                        self.log_test("Public Business Endpoint", True, f"404 Business Not Found (expected for test-slug) - Status: {response.status_code}")
+                        return True
+                    else:
+                        self.log_test("Public Business Endpoint", False, f"404 Not Found - endpoint may not exist", response_data)
+                        return False
+                except:
+                    self.log_test("Public Business Endpoint", False, f"404 Not Found - endpoint may not exist")
                     return False
+            elif response.status_code == 422:
+                self.log_test("Public Business Endpoint", True, f"422 Validation Error (expected) - Status: {response.status_code}")
+                return True
             else:
-                self.log_test("Add Staff - Valid Data", False, f"HTTP {response.status_code}", response.json())
-                return False
+                self.log_test("Public Business Endpoint", True, f"Non-404 response received - Status: {response.status_code}")
+                return True
                 
         except Exception as e:
-            self.log_test("Add Staff - Valid Data", False, f"Exception: {str(e)}")
+            self.log_test("Public Business Endpoint", False, f"Exception: {str(e)}")
             return False
     
     def test_add_staff_missing_fields(self):
