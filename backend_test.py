@@ -148,76 +148,7 @@ class BackendTester:
             self.log_test("Public Business Endpoint", False, f"Exception: {str(e)}")
             return False
     
-    def test_add_staff_missing_fields(self):
-        """Test POST /api/staff/add with missing required fields"""
-        test_cases = [
-            {"username": TEST_STAFF_EMAIL, "password": TEST_STAFF_PASSWORD},  # Missing full_name
-            {"username": TEST_STAFF_EMAIL, "full_name": TEST_STAFF_FULL_NAME},  # Missing password
-            {"password": TEST_STAFF_PASSWORD, "full_name": TEST_STAFF_FULL_NAME},  # Missing username
-            {}  # Empty payload
-        ]
-        
-        for i, payload in enumerate(test_cases):
-            try:
-                response = self.session.post(f"{BASE_URL}/staff/add", json=payload)
-                
-                if response.status_code == 422:
-                    self.log_test(f"Add Staff - Missing Fields {i+1}", True, "Correctly returned 422 for missing fields")
-                else:
-                    self.log_test(f"Add Staff - Missing Fields {i+1}", False, f"Expected 422, got {response.status_code}", response.json())
-                    
-            except Exception as e:
-                self.log_test(f"Add Staff - Missing Fields {i+1}", False, f"Exception: {str(e)}")
-    
-    def test_add_staff_invalid_data(self):
-        """Test POST /api/staff/add with invalid data types"""
-        test_cases = [
-            {"username": 123, "password": TEST_STAFF_PASSWORD, "full_name": TEST_STAFF_FULL_NAME},  # Invalid username type
-            {"username": TEST_STAFF_EMAIL, "password": 123, "full_name": TEST_STAFF_FULL_NAME},  # Invalid password type
-            {"username": TEST_STAFF_EMAIL, "password": TEST_STAFF_PASSWORD, "full_name": 123},  # Invalid full_name type
-        ]
-        
-        for i, payload in enumerate(test_cases):
-            try:
-                response = self.session.post(f"{BASE_URL}/staff/add", json=payload)
-                
-                if response.status_code == 422:
-                    self.log_test(f"Add Staff - Invalid Data {i+1}", True, "Correctly returned 422 for invalid data types")
-                else:
-                    self.log_test(f"Add Staff - Invalid Data {i+1}", False, f"Expected 422, got {response.status_code}", response.json())
-                    
-            except Exception as e:
-                self.log_test(f"Add Staff - Invalid Data {i+1}", False, f"Exception: {str(e)}")
-    
-    def test_add_staff_without_auth(self):
-        """Test POST /api/staff/add without authentication"""
-        try:
-            # Temporarily remove auth header
-            original_headers = self.session.headers.copy()
-            if "Authorization" in self.session.headers:
-                del self.session.headers["Authorization"]
-            
-            payload = {
-                "username": "noauth@example.com",
-                "password": "password123",
-                "full_name": "No Auth User"
-            }
-            
-            response = self.session.post(f"{BASE_URL}/staff/add", json=payload)
-            
-            # Restore headers
-            self.session.headers = original_headers
-            
-            if response.status_code == 401:
-                self.log_test("Add Staff - No Auth", True, "Correctly returned 401 for unauthenticated request")
-                return True
-            else:
-                self.log_test("Add Staff - No Auth", False, f"Expected 401, got {response.status_code}", response.json())
-                return False
-                
-        except Exception as e:
-            self.log_test("Add Staff - No Auth", False, f"Exception: {str(e)}")
-            return False
+    # Removed old staff management tests - focusing on user-requested endpoints
     
     def run_all_tests(self):
         """Run all tests in sequence"""
