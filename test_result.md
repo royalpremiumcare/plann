@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the staff management workflow and capture the exact payload being sent to the API. User getting 422 errors when adding staff. Need to capture exact request payload to identify validation issue."
+user_problem_statement: "Backend test etmek istiyorum. PLANN appointment scheduling uygulaması. Test edilecek endpoint'ler: 1. Health check veya root endpoint test et 2. Login endpoint test et: POST /api/token - Test datası: {username: test@test.com, password: test123} 3. Services endpoint: GET /api/services 4. Public business endpoint: GET /api/public/business/test-slug. Beklenen: Endpoint'ler artık 404 değil, uygun HTTP response kodları dönmeli. Backend'in çalışır durumda olduğunu doğrula. Not: Eğer kullanıcı yoksa 401 veya 422 normal, önemli olan 404 hatasının gitmesi."
 
 frontend:
   - task: "User Registration System"
