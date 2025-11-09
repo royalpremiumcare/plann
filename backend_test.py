@@ -152,32 +152,27 @@ class BackendTester:
     
     def run_all_tests(self):
         """Run all tests in sequence"""
-        print("🚀 Starting Backend API Tests for Staff Management")
-        print("=" * 60)
+        print("🚀 Starting Backend API Tests for PLANN Appointment Scheduling App")
+        print("=" * 70)
         
-        # Test authentication flow
-        if not self.test_register_user():
-            print("❌ Registration failed, stopping tests")
-            return False
-            
-        if not self.test_login():
-            print("❌ Login failed, stopping tests")
-            return False
-            
-        if not self.test_get_users():
-            print("❌ Authentication verification failed, stopping tests")
-            return False
+        # Test the specific endpoints requested by user
+        print("\n📋 Testing requested endpoints:")
+        print("1. Health check / root endpoint")
+        print("2. Login endpoint: POST /api/token")
+        print("3. Services endpoint: GET /api/services")
+        print("4. Public business endpoint: GET /api/public/business/test-slug")
+        print("=" * 70)
         
-        # Test staff management endpoints
-        self.test_add_staff_valid_data()
-        self.test_add_staff_missing_fields()
-        self.test_add_staff_invalid_data()
-        self.test_add_staff_without_auth()
+        # Run the tests
+        self.test_health_check()
+        self.test_login()
+        self.test_services_endpoint()
+        self.test_public_business_endpoint()
         
         # Summary
-        print("\n" + "=" * 60)
+        print("\n" + "=" * 70)
         print("📊 TEST SUMMARY")
-        print("=" * 60)
+        print("=" * 70)
         
         total_tests = len(self.test_results)
         passed_tests = sum(1 for result in self.test_results if result["success"])
@@ -193,6 +188,9 @@ class BackendTester:
             for result in self.test_results:
                 if not result["success"]:
                     print(f"  - {result['test']}: {result['details']}")
+        else:
+            print("\n✅ All endpoints are working correctly!")
+            print("✅ No 404 errors found - backend is responding properly")
         
         return failed_tests == 0
 
