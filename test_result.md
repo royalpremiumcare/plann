@@ -216,13 +216,15 @@ backend:
 
 metadata:
   created_by: "testing_agent"
-  version: "1.0"
-  test_sequence: 1
+  version: "1.1"
+  test_sequence: 2
 
 test_plan:
   current_focus:
-    - "Staff Management Workflow"
-    - "Staff Management API Endpoints"
+    - "Health Check / Root Endpoint"
+    - "Login Endpoint POST /api/token"
+    - "Services Endpoint GET /api/services"
+    - "Public Business Endpoint GET /api/public/business/test-slug"
   stuck_tasks:
     - "Staff Management Workflow"
     - "Staff Management API Endpoints"
